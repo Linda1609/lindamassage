@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import BookingModal from "./booking/booking-modal";
+import WhatsAppWidget from "./Whatsapp";
 
 
 export default function WelcomeSection() {
@@ -118,6 +119,7 @@ export default function WelcomeSection() {
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
       />
+      <WhatsAppWidget/>
     </>
   );
 }

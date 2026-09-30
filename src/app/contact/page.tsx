@@ -11,12 +11,14 @@ import {
   CheckCircle,
   ArrowRight,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useContact } from "@/hooks/use-contact";
 import Header from "@/components/layout/header";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import WhatsAppWidget from "@/components/Whatsapp";
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -70,18 +72,19 @@ export default function ContactPage() {
 
   const contactInfo = [
     {
-      icon: MapPin,
-      title: "Visit Us",
-      details: ["24 Willow Lane", "Nashville, TN 37203"],
+      icon: FaWhatsapp,
+      title: "Message Me",
+      details: ["Send a DM"],
+      link: "https://wa.me/message/B55K3TDCULYMN1",
     },
     {
       icon: Phone,
-      title: "Call Us",
+      title: "Call Me",
       details: ["+1 (951) 536-8206"],
     },
     {
       icon: Mail,
-      title: "Email Us",
+      title: "Email Me",
       details: ["sm160957a@gmail.com"],
     },
     {
@@ -116,18 +119,18 @@ export default function ContactPage() {
       {/* =====================================================
           HERO
       ====================================================== */}
-      <section className="relative pt-32 pb-20 bg-black overflow-hidden">
-        <div className="max-w-[1236px] mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <span className="text-spa-cream font-medium text-sm uppercase tracking-[0.2em]">
+      <section className="relative overflow-hidden bg-black pb-20 pt-32">
+        <div className="mx-auto max-w-[1236px] px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <span className="text-sm font-medium uppercase tracking-[0.2em] text-spa-cream">
               Get In Touch
             </span>
 
-            <h1 className="font-serif text-4xl md:text-6xl text-spa-cream mt-3 mb-6">
+            <h1 className="mt-3 mb-6 font-serif text-4xl text-spa-cream md:text-6xl">
               Contact Us
             </h1>
 
-            <p className="text-spa-cream/80 text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-spa-cream/80">
               Whether you have a question about our treatments, would like to
               arrange an appointment, or simply want to learn more, we&apos;re
               here to make getting in touch easy.
@@ -135,43 +138,61 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-spa-cream rounded-t-[50%]" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 rounded-t-[50%] bg-spa-cream" />
       </section>
 
       {/* =====================================================
           CONTACT INFORMATION
       ====================================================== */}
       <section className="py-14">
-        <div className="max-w-[1236px] mx-auto px-6">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-           {contactInfo.map((info, index) => {
-  const Icon = info.icon;
+        <div className="mx-auto max-w-[1236px] px-6">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {contactInfo.map((info, index) => {
+              const Icon = info.icon;
 
-  return (
-    <div
-      key={index}
-      className="bg-white border border-spa-brown/5 rounded-tl-3xl rounded-bl-3xl p-6 text-center hover:-translate-y-1 hover:shadow-md transition-all duration-300"
-    >
-      <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-        <Icon className="w-5 h-5 text-green-600" />
-      </div>
+              const card = (
+                <div className="rounded-tl-3xl rounded-bl-3xl border border-spa-brown/5 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                  {/* Icon */}
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                    <Icon className="h-5 w-5 text-green-600" />
+                  </div>
 
-      <h3 className="font-serif text-lg text-spa-brown mb-2">
-        {info.title}
-      </h3>
+                  {/* Title */}
+                  <h3 className="mb-2 font-serif text-lg text-spa-brown">
+                    {info.title}
+                  </h3>
 
-      {info.details.map((detail, i) => (
-        <p
-          key={i}
-          className="text-spa-brown/65 text-sm leading-6"
-        >
-          {detail}
-        </p>
-      ))}
-    </div>
-  );
-})}
+                  {/* Details */}
+                  {info.details.map((detail, i) => (
+                    <p
+                      key={i}
+                      className="text-sm leading-6 text-spa-brown/65"
+                    >
+                      {detail}
+                    </p>
+                  ))}
+                </div>
+              );
 
+              // WhatsApp card
+              if (info.link) {
+                return (
+                  <a
+                    key={index}
+                    href={info.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block"
+                    aria-label="Message us on WhatsApp"
+                  >
+                    {card}
+                  </a>
+                );
+              }
+
+              // Normal cards
+              return <div key={index}>{card}</div>;
+            })}
           </div>
         </div>
       </section>
@@ -180,25 +201,23 @@ export default function ContactPage() {
           CONTACT CONTENT + FORM
       ====================================================== */}
       <section className="py-16 md:py-24">
-        <div className="max-w-[1100px] mx-auto px-6">
-          <div className="grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-start">
-
+        <div className="mx-auto max-w-[1100px] px-6">
+          <div className="grid items-start gap-14 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
             {/* LEFT CONTENT */}
             <div className="lg:sticky lg:top-28">
-
-              <span className="text-[#ADB718] font-medium text-sm uppercase tracking-[0.2em]">
+              <span className="text-sm font-medium uppercase tracking-[0.2em] text-[#ADB718]">
                 Let&apos;s Connect
               </span>
 
-              <h2 className="font-serif text-3xl md:text-5xl text-spa-brown mt-3 mb-6 leading-tight">
-                A little conversation <span className="italic text-[#ADB718]">
+              <h2 className="mt-3 mb-6 font-serif text-3xl leading-tight text-spa-brown md:text-5xl">
+                A little conversation{" "}
+                <span className="italic text-[#ADB718]">
                   can be the beginning.
                 </span>
                 <br />
-                
               </h2>
 
-              <div className="space-y-5 text-spa-brown/65 leading-7">
+              <div className="space-y-5 leading-7 text-spa-brown/65">
                 <p>
                   Choosing a wellness experience should feel simple and
                   comfortable. If you&apos;re curious about a treatment,
@@ -206,36 +225,26 @@ export default function ContactPage() {
                   free to reach out.
                 </p>
 
-                {/* <p>
-                  Every guest has different needs. That&apos;s why we take the
-                  time to listen, answer your questions, and make sure you
-                  have the information you need before your appointment.
-                </p> */}
-
                 <p>
                   Send us a message and tell us what you&apos;re looking for.
                   We&apos;ll get back to you as soon as possible.
                 </p>
               </div>
-
-          
             </div>
 
             {/* RIGHT FORM */}
-            <div className="bg-white rounded-2xl p-7 md:p-10 shadow-sm border border-spa-brown/5">
-
+            <div className="rounded-2xl border border-spa-brown/5 bg-white p-7 shadow-sm md:p-10">
               {isSubmitted ? (
-                <div className="text-center py-16">
-
-                  <div className="w-20 h-20 rounded-full bg-spa-sage/20 flex items-center justify-center mx-auto mb-6">
-                    <CheckCircle className="w-10 h-10 text-spa-sage-dark" />
+                <div className="py-16 text-center">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-spa-sage/20">
+                    <CheckCircle className="h-10 w-10 text-spa-sage-dark" />
                   </div>
 
-                  <h3 className="font-serif text-3xl text-spa-brown mb-3">
+                  <h3 className="mb-3 font-serif text-3xl text-spa-brown">
                     Message Sent
                   </h3>
 
-                  <p className="text-spa-brown/65 max-w-md mx-auto leading-7 mb-7">
+                  <p className="mx-auto mb-7 max-w-md leading-7 text-spa-brown/65">
                     Thank you for reaching out. Your message has been received
                     and we&apos;ll get back to you shortly.
                   </p>
@@ -252,7 +261,7 @@ export default function ContactPage() {
                       });
                     }}
                     variant="outline"
-                    className="border-spa-orange text-spa-orange hover:bg-spa-orange/10 rounded-full px-6"
+                    className="rounded-full border-spa-orange px-6 text-spa-orange hover:bg-spa-orange/10"
                   >
                     Send Another Message
                   </Button>
@@ -260,25 +269,21 @@ export default function ContactPage() {
               ) : (
                 <>
                   <div className="mb-8">
-                    <h2 className="font-serif text-2xl md:text-3xl text-spa-brown mb-2">
+                    <h2 className="mb-2 font-serif text-2xl text-spa-brown md:text-3xl">
                       Send Us a Message
                     </h2>
 
-                    <p className="text-spa-brown/60 text-sm leading-6">
-                      Fill in the details below and we&apos;ll be in touch
-                      with you shortly.
+                    <p className="text-sm leading-6 text-spa-brown/60">
+                      Fill in the details below and we&apos;ll be in touch with
+                      you shortly.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-
-                    <div className="grid sm:grid-cols-2 gap-5">
-
+                    {/* Name + Email */}
+                    <div className="grid gap-5 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label
-                          htmlFor="name"
-                          className="text-spa-brown"
-                        >
+                        <Label htmlFor="name" className="text-spa-brown">
                           Full Name *
                         </Label>
 
@@ -294,10 +299,7 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label
-                          htmlFor="email"
-                          className="text-spa-brown"
-                        >
+                        <Label htmlFor="email" className="text-spa-brown">
                           Email Address *
                         </Label>
 
@@ -312,16 +314,12 @@ export default function ContactPage() {
                           className="h-12 rounded-lg border-spa-beige bg-spa-cream/30 focus:border-spa-orange focus:ring-spa-orange"
                         />
                       </div>
-
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-5">
-
+                    {/* Phone + Subject */}
+                    <div className="grid gap-5 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label
-                          htmlFor="phone"
-                          className="text-spa-brown"
-                        >
+                        <Label htmlFor="phone" className="text-spa-brown">
                           Phone Number
                         </Label>
 
@@ -337,10 +335,7 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label
-                          htmlFor="subject"
-                          className="text-spa-brown"
-                        >
+                        <Label htmlFor="subject" className="text-spa-brown">
                           Subject *
                         </Label>
 
@@ -354,14 +349,11 @@ export default function ContactPage() {
                           className="h-12 rounded-lg border-spa-beige bg-spa-cream/30 focus:border-spa-orange focus:ring-spa-orange"
                         />
                       </div>
-
                     </div>
 
+                    {/* Message */}
                     <div className="space-y-2">
-                      <Label
-                        htmlFor="message"
-                        className="text-spa-brown"
-                      >
+                      <Label htmlFor="message" className="text-spa-brown">
                         Your Message *
                       </Label>
 
@@ -373,24 +365,24 @@ export default function ContactPage() {
                         required
                         rows={7}
                         placeholder="Tell us how we can help you..."
-                        className="rounded-lg border-spa-beige bg-spa-cream/30 focus:border-spa-orange focus:ring-spa-orange resize-none"
+                        className="resize-none rounded-lg border-spa-beige bg-spa-cream/30 focus:border-spa-orange focus:ring-spa-orange"
                       />
                     </div>
 
+                    {/* Submit */}
                     <Button
                       type="submit"
                       disabled={isPending}
-                      className="w-full bg-[#ADB718] hover:bg-[#ADB718]/80 text-spa-cream rounded-full py-3.5 flex items-center justify-center gap-2"
+                      className="flex w-full items-center justify-center gap-2 rounded-full bg-[#ADB718] py-3.5 text-spa-cream hover:bg-[#ADB718]/80"
                     >
-                      <Send className="w-4 h-4" />
+                      <Send className="h-4 w-4" />
 
                       {isPending ? "Sending..." : "Send Message"}
 
                       {!isPending && (
-                        <ArrowRight className="w-4 h-4 ml-1" />
+                        <ArrowRight className="ml-1 h-4 w-4" />
                       )}
                     </Button>
-
                   </form>
                 </>
               )}
@@ -402,43 +394,43 @@ export default function ContactPage() {
       {/* =====================================================
           FAQ
       ====================================================== */}
-      <section className="py-20 bg-spa-beige/30">
-        <div className="max-w-[1236px] mx-auto px-6">
-
-          <div className="text-center max-w-2xl mx-auto mb-12">
-
-            <span className="text-[#ADB718] font-medium text-sm uppercase tracking-wider">
+      <section className="bg-spa-beige/30 py-20">
+        <div className="mx-auto max-w-[1236px] px-6">
+          <div className="mx-auto mb-12 max-w-2xl text-center">
+            <span className="text-sm font-medium uppercase tracking-wider text-[#ADB718]">
               FAQ
             </span>
 
-            <h2 className="font-serif text-3xl md:text-4xl text-spa-brown mt-2">
+            <h2 className="mt-2 font-serif text-3xl text-spa-brown md:text-4xl">
               Frequently Asked Questions
             </h2>
 
-            <p className="text-spa-brown/60 text-sm mt-4 leading-6">
+            <p className="mt-4 text-sm leading-6 text-spa-brown/60">
               A few helpful answers before your first visit.
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="mx-auto max-w-3xl space-y-4">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-white rounded-xl p-6 border border-spa-brown/5"
+                className="rounded-xl border border-spa-brown/5 bg-white p-6"
               >
-                <h3 className="font-serif text-lg text-spa-brown mb-2">
+                <h3 className="mb-2 font-serif text-lg text-spa-brown">
                   {faq.question}
                 </h3>
 
-                <p className="text-spa-brown/65 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed text-spa-brown/65">
                   {faq.answer}
                 </p>
               </div>
             ))}
           </div>
-
         </div>
       </section>
+
+      {/* WhatsApp Floating Widget */}
+      <WhatsAppWidget />
     </main>
   );
 }

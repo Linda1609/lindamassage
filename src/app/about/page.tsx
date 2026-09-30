@@ -5,6 +5,7 @@ import Header from "@/components/layout/header"
 import Image from "next/image"
 import { Leaf, Heart, Award, Star } from "lucide-react"
 import BookingModal from "@/components/booking/booking-modal"
+import WhatsAppWidget from "@/components/Whatsapp"
 
 export default function AboutPage() {
   const [isBookingOpen, setIsBookingOpen] = useState(false)
@@ -209,6 +210,7 @@ export default function AboutPage() {
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
       />
+      <WhatsAppWidget/>
     </main>
   )
 }

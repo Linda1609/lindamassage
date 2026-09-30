@@ -1,6 +1,7 @@
 "use client";
 
 import GiftCardBalanceForm from "@/components/giftCard/GiftCardBalanceForm";
+import WhatsAppWidget from "@/components/Whatsapp";
 
 export default function GiftCardBalancePage() {
   const handleSubmit = async (data: any) => {
@@ -19,6 +20,7 @@ export default function GiftCardBalancePage() {
           onCancel={() => (window.location.href = "/")}
         />
       </div>
+      <WhatsAppWidget/>
     </div>
   );
 }

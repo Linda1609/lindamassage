@@ -55,18 +55,18 @@ export default function Header() {
       name: "About",
       href: "/about",
     },
-    {
-      name: "Treatments",
-      href: "/services",
-    },
+    // {
+    //   name: "Treatments",
+    //   href: "/services",
+    // },
     {
       name: "Contact",
       href: "/contact",
     },
-    // {
-    //   name: "Gift Card",
-    //   href: "/gift-card-balance",
-    // },
+    {
+      name: "Check YourGift Card",
+      href: "/gift-card-balance",
+    },
   ];
 
   return (
