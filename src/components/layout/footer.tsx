@@ -24,10 +24,12 @@ export default function Footer() {
     <footer className="bg-[#303822] text-[#f7f3eb]">
       <div className="mx-auto max-w-[1236px] px-6 py-12">
 
-        {/* Main Footer */}
+        {/* =====================================================
+            MAIN FOOTER
+        ====================================================== */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
-          {/* Brand */}
+          {/* BRAND */}
           <div>
             <Link
               href="/"
@@ -47,13 +49,14 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* QUICK LINKS */}
           <div>
             <h3 className="mb-4 font-serif text-lg">
               Quick Links
             </h3>
 
             <div className="flex flex-col gap-2.5 text-sm text-white/60">
+
               <Link
                 href="/"
                 className="transition hover:text-[#adb718]"
@@ -81,10 +84,11 @@ export default function Footer() {
               >
                 About
               </a>
+
             </div>
           </div>
 
-          {/* Services */}
+          {/* SERVICES */}
           <div>
             <h3 className="mb-4 font-serif text-lg">
               Services
@@ -103,7 +107,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Contact */}
+          {/* CONTACT */}
           <div>
             <h3 className="mb-4 font-serif text-lg">
               Contact
@@ -112,16 +116,28 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-white/60">
 
               <a
-                href="tel:+16154579792"
-                className="flex items-center gap-3 transition hover:text-[#adb718]"
+                href="tel:+19515368206"
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  transition
+                  hover:text-[#adb718]
+                "
               >
                 <Phone size={15} />
                 <span>+1 (951) 536-8206</span>
               </a>
 
               <a
-                href="mailto:sdbrooke1005@gmail.com"
-                className="flex items-start gap-3 transition hover:text-[#adb718]"
+                href="mailto:sm160957a@gmail.com"
+                className="
+                  flex
+                  items-start
+                  gap-3
+                  transition
+                  hover:text-[#adb718]
+                "
               >
                 <Mail
                   size={15}
@@ -141,11 +157,37 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="mt-10 flex flex-col gap-5 border-t border-white/10 pt-7 lg:flex-row lg:items-center lg:justify-between">
+        {/* =====================================================
+            BOTTOM SECTION
+        ====================================================== */}
+        <div
+          className="
+            mt-10
+            flex
+            flex-col
+            gap-5
+            border-t
+            border-white/10
+            pt-7
+            lg:flex-row
+            lg:items-center
+            lg:justify-between
+          "
+        >
 
-          {/* Payment Methods */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* =================================================
+              PAYMENT METHODS
+          ================================================== */}
+          <div
+            id="payment-methods"
+            className="
+              scroll-mt-24
+              flex
+              flex-wrap
+              items-center
+              gap-2
+            "
+          >
             <span className="mr-1 text-xs text-white/50">
               We Accept:
             </span>
@@ -172,11 +214,16 @@ export default function Footer() {
                   alt={method.name}
                   width={40}
                   height={24}
-                  className="max-h-6 w-auto object-contain"
+                  className="
+                    max-h-6
+                    w-auto
+                    object-contain
+                  "
                 />
               </div>
             ))}
 
+            {/* CASH */}
             <div
               className="
                 flex
@@ -193,7 +240,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Copyright */}
+          {/* COPYRIGHT */}
           <p className="text-xs text-white/40">
             © {new Date().getFullYear()} Linda Massage Spa & Wellness
           </p>

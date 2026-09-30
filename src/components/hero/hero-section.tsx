@@ -14,16 +14,26 @@ import BookingModal from "../booking/booking-modal";
 export default function HeroSection() {
   const [giftCardOpen, setGiftCardOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [giftOpen, setGiftOpen] = useState(false);
 
   return (
     <>
-      <section className="relative min-h-[110svh] w-full overflow-hidden bg-black">
+      <section
+        className="
+          relative
+          min-h-[100svh]
+          w-full
+          overflow-hidden
+          bg-black
+          lg:min-h-[120svh]
+        "
+      >
         {/* =====================================================
             HERO IMAGE
         ====================================================== */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/images/linda.jpg"
+            src="/images/linda11.png"
             alt=""
             className="
               absolute
@@ -31,10 +41,12 @@ export default function HeroSection() {
               h-full
               w-full
               object-cover
-              object-center
-              scale-x-[-1]
+             
             "
           />
+
+          {/* Optional dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-black/10" />
         </div>
 
         {/* =====================================================
@@ -52,8 +64,7 @@ export default function HeroSection() {
             flex-col
             justify-end
             px-6
-            pb-20
-            pt-32
+            pt-70
             sm:px-8
             sm:pb-24
             lg:px-10
@@ -115,34 +126,72 @@ export default function HeroSection() {
                 sm:flex-row
               "
             >
-              {/* PRIMARY — BOOK SESSION */}
-              <Button
-                onClick={() => setBookingOpen(true)}
-                className="
-                  h-[48px]
-                  w-full
-                  rounded-full
-                  bg-white
-                  px-6
-                  text-[13px]
-                  font-semibold
-                  text-[#29231f]
-                  shadow-lg
-                  transition-all
-                  hover:scale-[1.02]
-                  hover:bg-[#f4eee8]
-                  sm:w-auto
-                "
-              >
-                Book Your Session
-              </Button>
+              {/* CUSTOMER REVIEWS */}
+               {/* CUSTOMER REVIEWS */}
+<Button
+  type="button"
+  onClick={() => {
+    document
+      .getElementById("reviews")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="
+    h-[48px]
+    w-full
+    rounded-full
+    bg-white
+    px-6
+    text-[20px]
+    font-semibold
+    text-black
+    shadow-lg
+    transition-all
+    hover:scale-[1.02]
+    hover:bg-[#f4eee8]
+    sm:w-auto
+    sm:text-[22px]
+  "
+>
+  Customer's Reviews
+</Button>
 
-              {/* SECONDARY — EXPLORE TREATMENTS */}
-              <a
-                href="#treatments"
+{/* PAYMENT METHOD */}
+<Button
+  type="button"
+  onClick={() => {
+    document
+      .getElementById("payment-methods")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="
+    h-[48px]
+    w-full
+    rounded-full
+    bg-white
+    px-6
+    text-[20px]
+    font-semibold
+    text-black
+    shadow-lg
+    transition-all
+    hover:scale-[1.02]
+    hover:bg-[#f4eee8]
+    sm:w-auto
+    sm:text-[22px]
+  "
+>
+  Payment Method
+</Button>
+
+
+              {/* GIFT CARD */}
+              <button
+                type="button"
+                onClick={() => setGiftCardOpen(true)}
                 className="block w-full sm:w-auto"
               >
                 <Button
+                  type="button"
                   variant="outline"
                   className="
                     group
@@ -151,40 +200,22 @@ export default function HeroSection() {
                     rounded-full
                     border
                     border-white/60
-                    bg-white/5
+                    bg-white
                     px-5
-                    text-[13px]
-                    font-medium
-                    text-white
+                    text-[20px]
+                    font-semibold
+                    text-black
                     backdrop-blur-sm
                     transition-all
                     hover:bg-white
                     hover:text-[#29231f]
                     sm:w-auto
+                    sm:text-[20px]
                   "
                 >
-                  Explore Treatments
-
-                  <span
-                    className="
-                      ml-2
-                      flex
-                      h-7
-                      w-7
-                      items-center
-                      justify-center
-                      rounded-full
-                      bg-white
-                      text-[#29231f]
-                      transition-transform
-                      duration-300
-                      group-hover:rotate-45
-                    "
-                  >
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </span>
+                  Check Your Gift-card Balance
                 </Button>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -252,44 +283,42 @@ export default function HeroSection() {
             </div>
 
             {/* AVATARS */}
-            {/* AVATARS */}
-<div className="ml-1 hidden items-center sm:flex">
-  {[
-    "/reviews/Michael.jpg",
-    "/reviews/Robert.jpg",
-    "/reviews/Daniel.jpg",
-    "/reviews/Kevin.jpg",
-    "/reviews/James-Olivia.jpg",
-  ].map((avatar, index) => (
-    <div
-      key={avatar}
-      className="
-        -ml-2
-        h-8
-        w-8
-        overflow-hidden
-        rounded-full
-        border-2
-        border-white/70
-        bg-[#ddd]
-      "
-      style={{
-        zIndex: 10 - index,
-      }}
-    >
-      <img
-        src={avatar}
-        alt=""
-        className="
-          h-full
-          w-full
-          object-cover
-        "
-      />
-    </div>
-  ))}
-</div>
-
+            <div className="ml-1 hidden items-center sm:flex">
+              {[
+                "/reviews/Michael.jpg",
+                "/reviews/Robert.jpg",
+                "/reviews/Daniel.jpg",
+                "/reviews/Kevin.jpg",
+                "/reviews/James-Olivia.jpg",
+              ].map((avatar, index) => (
+                <div
+                  key={avatar}
+                  className="
+                    -ml-2
+                    h-8
+                    w-8
+                    overflow-hidden
+                    rounded-full
+                    border-2
+                    border-white/70
+                    bg-[#ddd]
+                  "
+                  style={{
+                    zIndex: 10 - index,
+                  }}
+                >
+                  <img
+                    src={avatar}
+                    alt=""
+                    className="
+                      h-full
+                      w-full
+                      object-cover
+                    "
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* =================================================
@@ -313,7 +342,7 @@ export default function HeroSection() {
               lg:right-10
             "
           >
-            <div className="flex items-center gap-3 ">
+            <div className="flex items-center gap-3">
               {/* IMAGE */}
               <div
                 className="
@@ -418,10 +447,10 @@ export default function HeroSection() {
       {/* =====================================================
           BOOKING MODAL
       ====================================================== */}
-      <BookingModal
+      {/* <BookingModal
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
-      />
+      /> */}
 
       {/* =====================================================
           GIFT CARD POPUP
