@@ -9,11 +9,11 @@ const gallery = [
     alt: "Linda wellness experience",
   },
   {
-    src: "/images/linda.jpg",
+    src: "/images/linda14.jpg",
     alt: "Relaxing wellness space",
   },
   {
-    src: "/images/linda2.jpg",
+    src: "/images/linda11.jpg",
     alt: "Massage experience",
   },
   {

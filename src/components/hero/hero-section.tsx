@@ -21,7 +21,7 @@ export default function HeroSection() {
       <section
         className="
           relative
-          min-h-[100svh]
+          min-h-[120svh]
           w-full
           overflow-hidden
           bg-black
@@ -33,7 +33,7 @@ export default function HeroSection() {
         ====================================================== */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/images/linda11.png"
+            src="/images/linda12.jpg"
             alt=""
             className="
               absolute
@@ -56,8 +56,9 @@ export default function HeroSection() {
           className="
             relative
             z-10
-            mx-auto
+           
             flex
+            mt-80
             min-h-[100svh]
             w-full
             max-w-[1236px]
@@ -79,14 +80,13 @@ export default function HeroSection() {
             <h1
               className="
                 font-serif
-                text-[42px]
+                text-[32px]
                 font-medium
                 leading-[0.98]
                 tracking-[-0.035em]
                 text-white
-                sm:text-[54px]
                 md:text-[62px]
-                lg:text-[72px]
+                lg:text-[62px]
               "
             >
               Feel Better.
@@ -108,8 +108,7 @@ export default function HeroSection() {
               "
             >
               Personalized therapeutic massage designed to reduce pain,
-              relieve stress, and restore your body's natural balance —
-              delivered by highly trained therapists.
+              relieve stress, and restore your body's natural balance
             </p>
 
             {/* =================================================
@@ -127,7 +126,7 @@ export default function HeroSection() {
               "
             >
               {/* CUSTOMER REVIEWS */}
-               {/* CUSTOMER REVIEWS */}
+             
 <Button
   type="button"
   onClick={() => {
@@ -211,6 +210,7 @@ export default function HeroSection() {
                     hover:text-[#29231f]
                     sm:w-auto
                     sm:text-[20px]
+                    mb-5
                   "
                 >
                   Check Your Gift-card Balance
@@ -222,104 +222,79 @@ export default function HeroSection() {
           {/* =================================================
               CUSTOMER RATING
           ================================================== */}
-          <div
-            className="
-              mt-10
-              flex
-              items-center
-              gap-4
-              sm:mt-12
-            "
-          >
-            {/* CUSTOMER COUNT */}
-            <div>
-              <p
-                className="
-                  text-[17px]
-                  font-semibold
-                  leading-none
-                  text-white
-                "
-              >
-                1k+
-              </p>
+         <div
+  className="
+    hidden
+    items-center
+    gap-4
+    mt-10
+    sm:flex
+    sm:mt-12
+  "
+>
+  {/* CUSTOMER COUNT */}
+  <div>
+    <p className="text-[17px] font-semibold leading-none text-white">
+      1k+
+    </p>
 
-              <p
-                className="
-                  mt-1
-                  text-[10px]
-                  text-white/65
-                "
-              >
-                Satisfied Customers
-              </p>
-            </div>
+    <p className="mt-1 text-[10px] text-white/65">
+      Satisfied Customers
+    </p>
+  </div>
 
-            {/* DIVIDER */}
-            <div className="h-9 w-px bg-white/25" />
+  {/* DIVIDER */}
+  <div className="h-9 w-px bg-white/25" />
 
-            {/* RATING */}
-            <div>
-              <div className="flex items-center gap-[2px]">
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Star
-                    key={item}
-                    className="
-                      h-[15px]
-                      w-[15px]
-                      fill-[#f5a623]
-                      text-[#f5a623]
-                    "
-                  />
-                ))}
-              </div>
+  {/* RATING */}
+  <div>
+    <div className="flex items-center gap-[2px]">
+      {[1, 2, 3, 4, 5].map((item) => (
+        <Star
+          key={item}
+          className="h-[15px] w-[15px] fill-[#f5a623] text-[#f5a623]"
+        />
+      ))}
+    </div>
 
-              <p className="mt-1 text-[10px] text-white/80">
-                <span className="font-semibold text-white">
-                  4.9
-                </span>{" "}
-                average rating
-              </p>
-            </div>
+    <p className="mt-1 text-[10px] text-white/80">
+      <span className="font-semibold text-white">4.9</span>{" "}
+      average rating
+    </p>
+  </div>
 
-            {/* AVATARS */}
-            <div className="ml-1 hidden items-center sm:flex">
-              {[
-                "/reviews/Michael.jpg",
-                "/reviews/Robert.jpg",
-                "/reviews/Daniel.jpg",
-                "/reviews/Kevin.jpg",
-                "/reviews/James-Olivia.jpg",
-              ].map((avatar, index) => (
-                <div
-                  key={avatar}
-                  className="
-                    -ml-2
-                    h-8
-                    w-8
-                    overflow-hidden
-                    rounded-full
-                    border-2
-                    border-white/70
-                    bg-[#ddd]
-                  "
-                  style={{
-                    zIndex: 10 - index,
-                  }}
-                >
-                  <img
-                    src={avatar}
-                    alt=""
-                    className="
-                      h-full
-                      w-full
-                      object-cover
-                    "
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+  {/* AVATARS */}
+  <div className="ml-1 hidden items-center sm:flex">
+    {[
+      "/reviews/Michael.jpg",
+      "/reviews/Robert.jpg",
+      "/reviews/Daniel.jpg",
+      "/reviews/Kevin.jpg",
+      "/reviews/James-Olivia.jpg",
+    ].map((avatar, index) => (
+      <div
+        key={avatar}
+        className="
+          -ml-2
+          h-8
+          w-8
+          overflow-hidden
+          rounded-full
+          border-2
+          border-white/70
+          bg-[#ddd]
+        "
+        style={{ zIndex: 10 - index }}
+      >
+        <img
+          src={avatar}
+          alt=""
+          className="h-full w-full object-cover"
+        />
+      </div>
+    ))}
+  </div>
+</div>
 
           {/* =================================================
               FLOATING EXPERIENCE CARD

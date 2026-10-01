@@ -32,7 +32,7 @@ export default function AboutSec() {
               {/* Main image */}
               <div className="relative z-10 aspect-[4/5] overflow-hidden rounded-[2rem]">
                 <Image
-                  src="/images/linda1.jpg"
+                  src="/images/linda13.jpg"
                   alt="Linda massage therapist"
                   fill
                   className="object-cover transition duration-700 hover:scale-105"
