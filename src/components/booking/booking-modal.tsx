@@ -51,16 +51,9 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [selectedService, setSelectedService] = useState("");
   const [selectedBooking, setSelectedBooking] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-
-  const [selectedTime, setSelectedTime] = useState("");
-  const [customTime, setCustomTime] = useState("");
-
-
-const [selectedHour, setSelectedHour] = useState(9);
-const [selectedMinute, setSelectedMinute] = useState(0);
-const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
-
-
+  const [selectedHour, setSelectedHour] = useState(9);
+  const [selectedMinute, setSelectedMinute] = useState(0);
+  const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -72,7 +65,7 @@ const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
   const { mutate, isPending } = useContact();
   const [isSuccess, setIsSuccess] = useState(false);
 
- const finalTime = `${selectedHour}:${String(selectedMinute).padStart(2, "0")} ${selectedPeriod}`;
+  const finalTime = `${selectedHour}:${String(selectedMinute).padStart(2, "0")} ${selectedPeriod}`;
 
   const handleSubmit = () => {
     const selectedDuration = bookingOptions.find(
@@ -99,26 +92,30 @@ const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
     );
   };
 
-  const reset = () => {
-    setStep(1);
-    setSelectedService("");
-    setSelectedBooking("");
-    setSelectedDate("");
-    setSelectedTime("");
-    setCustomTime("");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      notes: "",
-    });
-    setIsSuccess(false);
-  };
+const reset = () => {
+  setStep(1);
+  setSelectedService("");
+  setSelectedBooking("");
+  setSelectedDate("");
+  setSelectedHour(9);
+  setSelectedMinute(0);
+  setSelectedPeriod("AM");
 
-  const close = () => {
-    reset();
-    onClose();
-  };
+  setFormData({
+    name: "",
+    email: "",
+    phone: "",
+    notes: "",
+  });
+
+  setIsSuccess(false);
+};
+
+const close = () => {
+  reset();
+  onClose();
+};
+
 
   if (!isOpen) return null;
 
@@ -130,9 +127,15 @@ const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
       {/* MODAL */}
       <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-spa-cream shadow-2xl">
         {/* CLOSE */}
-        <button onClick={close} className="absolute right-4 top-4 p-2">
-          <X className="h-5 w-5" />
-        </button>
+       
+<button
+  type="button"
+  onClick={close}
+  aria-label="Close booking modal"
+  className="absolute right-4 top-4 z-50 rounded-full p-2 hover:bg-black/10"
+>
+  <X className="h-5 w-5" />
+</button>
 
         {/* HEADER */}
         <div className="border-b p-8">
@@ -213,120 +216,116 @@ const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
               )}
 
               {/* STEP 2 */}
-               
-{/* STEP 2 */}
-{step === 2 && (
-  <div className="space-y-6">
-    {/* DATE */}
-    <div>
-      <h3 className="font-serif text-xl text-spa-brown">
-        Date
-      </h3>
 
-      <Input
-        type="date"
-        value={selectedDate}
-        min={new Date().toLocaleDateString("en-CA")}
-        onChange={(e) => setSelectedDate(e.target.value)}
-        className="mt-2"
-      />
-    </div>
+              {/* STEP 2 */}
+              {step === 2 && (
+                <div className="space-y-6">
+                  {/* DATE */}
+                  <div>
+                    <h3 className="font-serif text-xl text-spa-brown">Date</h3>
 
-    {/* ALARM-STYLE TIME PICKER */}
-    <div>
-      <h3 className="mb-4 font-serif text-xl text-spa-brown">
-        Pick a Time
-      </h3>
+                    <Input
+  type="date"
+  value={selectedDate}
+  min={new Date().toLocaleDateString("en-CA")}
+  onChange={(e) => setSelectedDate(e.target.value)}
+  className="mt-2"
+/>
+                  </div>
 
-      <div className="mx-auto w-full max-w-md rounded-3xl bg-[#1c1c1e] p-4 text-white shadow-inner">
-        <div className="relative mx-auto flex h-64 max-w-sm items-center justify-center gap-2 overflow-hidden">
-          {/* SELECTED ROW */}
-          <div className="pointer-events-none absolute inset-x-0 top-1/2 z-0 h-16 -translate-y-1/2 rounded-full bg-[#303034]" />
+                  {/* ALARM-STYLE TIME PICKER */}
+                  <div>
+                    <h3 className="mb-4 font-serif text-xl text-spa-brown">
+                      Pick a Time
+                    </h3>
 
-          {/* HOURS */}
-          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="h-[calc(50%-2rem)]" />
+                    <div className="mx-auto w-full max-w-md rounded-3xl bg-[#1c1c1e] p-4 text-white shadow-inner">
+                      <div className="relative mx-auto flex h-64 max-w-sm items-center justify-center gap-2 overflow-hidden">
+                        {/* SELECTED ROW */}
+                        <div className="pointer-events-none absolute inset-x-0 top-1/2 z-0 h-16 -translate-y-1/2 rounded-full bg-[#303034]" />
 
-            {Array.from({ length: 12 }, (_, i) => i + 1).map(
-              (hour) => (
-                <button
-                  key={hour}
-                  type="button"
-                  onClick={() => setSelectedHour(hour)}
-                  className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
-                    selectedHour === hour
-                      ? "font-medium text-white"
-                      : "text-white/35"
-                  }`}
-                >
-                  {hour}
-                </button>
-              ),
-            )}
+                        {/* HOURS */}
+                        <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          <div className="h-[calc(50%-2rem)]" />
 
-            <div className="h-[calc(50%-2rem)]" />
-          </div>
+                          {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                            (hour) => (
+                              <button
+                                key={hour}
+                                type="button"
+                                onClick={() => setSelectedHour(hour)}
+                                className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                                  selectedHour === hour
+                                    ? "font-medium text-white"
+                                    : "text-white/35"
+                                }`}
+                              >
+                                {hour}
+                              </button>
+                            ),
+                          )}
 
-          {/* MINUTES */}
-          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="h-[calc(50%-2rem)]" />
+                          <div className="h-[calc(50%-2rem)]" />
+                        </div>
 
-            {Array.from({ length: 60 }, (_, minute) => (
-              <button
-                key={minute}
-                type="button"
-                onClick={() => setSelectedMinute(minute)}
-                className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
-                  selectedMinute === minute
-                    ? "font-medium text-white"
-                    : "text-white/35"
-                }`}
-              >
-                {String(minute).padStart(2, "0")}
-              </button>
-            ))}
+                        {/* MINUTES */}
+                        <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          <div className="h-[calc(50%-2rem)]" />
 
-            <div className="h-[calc(50%-2rem)]" />
-          </div>
+                          {Array.from({ length: 60 }, (_, minute) => (
+                            <button
+                              key={minute}
+                              type="button"
+                              onClick={() => setSelectedMinute(minute)}
+                              className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                                selectedMinute === minute
+                                  ? "font-medium text-white"
+                                  : "text-white/35"
+                              }`}
+                            >
+                              {String(minute).padStart(2, "0")}
+                            </button>
+                          ))}
 
-          {/* AM / PM */}
-          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <div className="h-[calc(50%-2rem)]" />
+                          <div className="h-[calc(50%-2rem)]" />
+                        </div>
 
-            {(["AM", "PM"] as const).map((period) => (
-              <button
-                key={period}
-                type="button"
-                onClick={() => setSelectedPeriod(period)}
-                className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
-                  selectedPeriod === period
-                    ? "font-medium text-white"
-                    : "text-white/35"
-                }`}
-              >
-                {period}
-              </button>
-            ))}
+                        {/* AM / PM */}
+                        <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                          <div className="h-[calc(50%-2rem)]" />
 
+                          {(["AM", "PM"] as const).map((period) => (
+                            <button
+                              key={period}
+                              type="button"
+                              onClick={() => setSelectedPeriod(period)}
+                              className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                                selectedPeriod === period
+                                  ? "font-medium text-white"
+                                  : "text-white/35"
+                              }`}
+                            >
+                              {period}
+                            </button>
+                          ))}
 
+                          <div className="h-[calc(50%-2rem)]" />
+                        </div>
+                      </div>
 
-            <div className="h-[calc(50%-2rem)]" />
-          </div>
-        </div>
-
-        {/* SELECTED TIME */}
-        {/* <p className="mt-3 text-center text-sm text-white/60">
+                      {/* SELECTED TIME */}
+                      {/* <p className="mt-3 text-center text-sm text-white/60">
           Selected time
         </p> */}
 
-        <p className="mt-1 text-center text-lg font-medium text-white">
-          {selectedHour}:{String(selectedMinute).padStart(2, "0")}{" "}
-          {selectedPeriod}
-        </p>
-      </div>
-    </div>
-  </div>
-)}
+                      <p className="mt-1 text-center text-lg font-medium text-white">
+                        {selectedHour}:{String(selectedMinute).padStart(2, "0")}{" "}
+                        {selectedPeriod}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
               {/* STEP 3 */}
               {step === 3 && (
                 <div>
@@ -433,43 +432,49 @@ const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
               )}
 
               {/* NAVIGATION */}
-              <div className="mt-8 flex justify-between">
-                {step > 1 && (
-                  <Button
-                    onClick={() => setStep(step - 1)}
-                    className="border border-[#3d5837] bg-[#e7eee2] text-[#3d5837] hover:bg-[#d8e5d2] hover:text-[#2f452c]"
-                  >
-                    Back
-                  </Button>
-                )}
+            
+{/* NAVIGATION */}
+<div className="mt-8 flex justify-between">
+  {step > 1 && (
+    <Button
+      type="button"
+      onClick={() => setStep((current) => current - 1)}
+      className="border border-[#3d5837] bg-[#e7eee2] text-[#3d5837] hover:bg-[#d8e5d2] hover:text-[#2f452c]"
+    >
+      Back
+    </Button>
+  )}
 
-                {step < 3 ? (
-                  <Button
-                    onClick={() => setStep(step + 1)}
-                    disabled={
-                      (step === 1 && (!selectedService || !selectedBooking)) ||
-                      (step === 2 &&
-                        (!selectedDate || (!selectedTime && !customTime)))
-                    }
-                    className="bg-[#3d5837] text-white hover:bg-[#2f452c]"
-                  >
-                    Continue
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={
-                      !formData.name ||
-                      !formData.email ||
-                      !formData.phone ||
-                      isPending
-                    }
-                    className="bg-[#3d5837] text-white hover:bg-[#2f452c]"
-                  >
-                    {isPending ? "Booking..." : "Confirm"}
-                  </Button>
-                )}
-              </div>
+  {step < 3 ? (
+    <Button
+      type="button"
+      onClick={() => setStep((current) => current + 1)}
+      disabled={
+        step === 1
+          ? !selectedService || !selectedBooking
+          : !selectedDate
+      }
+      className="bg-[#3d5837] text-white hover:bg-[#2f452c] disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      Continue
+    </Button>
+  ) : (
+    <Button
+      type="button"
+      onClick={handleSubmit}
+      disabled={
+        !formData.name ||
+        !formData.email ||
+        !formData.phone ||
+        isPending
+      }
+      className="bg-[#3d5837] text-white hover:bg-[#2f452c]"
+    >
+      {isPending ? "Booking..." : "Confirm"}
+    </Button>
+  )}
+</div>
+
             </>
           )}
         </div>
