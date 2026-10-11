@@ -55,6 +55,13 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [selectedTime, setSelectedTime] = useState("");
   const [customTime, setCustomTime] = useState("");
 
+
+const [selectedHour, setSelectedHour] = useState(9);
+const [selectedMinute, setSelectedMinute] = useState(0);
+const [selectedPeriod, setSelectedPeriod] = useState<"AM" | "PM">("AM");
+
+
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -65,7 +72,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const { mutate, isPending } = useContact();
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const finalTime = customTime || selectedTime;
+ const finalTime = `${selectedHour}:${String(selectedMinute).padStart(2, "0")} ${selectedPeriod}`;
 
   const handleSubmit = () => {
     const selectedDuration = bookingOptions.find(
@@ -206,66 +213,120 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               )}
 
               {/* STEP 2 */}
-              {step === 2 && (
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="font-serif text-xl text-spa-brown">Date</h3>
+               
+{/* STEP 2 */}
+{step === 2 && (
+  <div className="space-y-6">
+    {/* DATE */}
+    <div>
+      <h3 className="font-serif text-xl text-spa-brown">
+        Date
+      </h3>
 
-                    <Input
-                      type="date"
-                      value={selectedDate}
-                      onChange={(e) => setSelectedDate(e.target.value)}
-                    />
-                  </div>
+      <Input
+        type="date"
+        value={selectedDate}
+        min={new Date().toLocaleDateString("en-CA")}
+        onChange={(e) => setSelectedDate(e.target.value)}
+        className="mt-2"
+      />
+    </div>
 
-                  <div>
-                    <h3 className="font-serif text-xl text-spa-brown">
-                      Pick a Time
-                    </h3>
+    {/* ALARM-STYLE TIME PICKER */}
+    <div>
+      <h3 className="mb-4 font-serif text-xl text-spa-brown">
+        Pick a Time
+      </h3>
 
-                    <div className="mt-2 grid grid-cols-3 gap-2">
-                      {timeSlots.map((t) => (
-                        <button
-                          key={t}
-                          onClick={() => {
-                            setSelectedTime(t);
-                            setCustomTime("");
-                          }}
-                          className={`rounded border p-2 transition ${
-                            selectedTime === t
-                              ? "border-[#3d5837] bg-[#e7eee2]"
-                              : ""
-                          }`}
-                        >
-                          {t}
-                        </button>
-                      ))}
-                    </div>
+      <div className="mx-auto w-full max-w-md rounded-3xl bg-[#1c1c1e] p-4 text-white shadow-inner">
+        <div className="relative mx-auto flex h-64 max-w-sm items-center justify-center gap-2 overflow-hidden">
+          {/* SELECTED ROW */}
+          <div className="pointer-events-none absolute inset-x-0 top-1/2 z-0 h-16 -translate-y-1/2 rounded-full bg-[#303034]" />
 
-                    {/* CUSTOM TIME */}
-                    <div className="mt-4">
-                      <h3 className="font-serif text-xl text-spa-brown">
-                        Choose Your Prefrred Time
-                      </h3>
+          {/* HOURS */}
+          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="h-[calc(50%-2rem)]" />
 
-                      <Input
-                        className={
-                          customTime
-                            ? "border-[#3d5837] ring-1 ring-[#3d5837]"
-                            : ""
-                        }
-                        type="time"
-                        value={customTime}
-                        onChange={(e) => {
-                          setCustomTime(e.target.value);
-                          setSelectedTime("");
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
+            {Array.from({ length: 12 }, (_, i) => i + 1).map(
+              (hour) => (
+                <button
+                  key={hour}
+                  type="button"
+                  onClick={() => setSelectedHour(hour)}
+                  className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                    selectedHour === hour
+                      ? "font-medium text-white"
+                      : "text-white/35"
+                  }`}
+                >
+                  {hour}
+                </button>
+              ),
+            )}
 
+            <div className="h-[calc(50%-2rem)]" />
+          </div>
+
+          {/* MINUTES */}
+          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="h-[calc(50%-2rem)]" />
+
+            {Array.from({ length: 60 }, (_, minute) => (
+              <button
+                key={minute}
+                type="button"
+                onClick={() => setSelectedMinute(minute)}
+                className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                  selectedMinute === minute
+                    ? "font-medium text-white"
+                    : "text-white/35"
+                }`}
+              >
+                {String(minute).padStart(2, "0")}
+              </button>
+            ))}
+
+            <div className="h-[calc(50%-2rem)]" />
+          </div>
+
+          {/* AM / PM */}
+          <div className="relative z-10 h-full min-w-0 flex-1 overflow-y-auto snap-y snap-mandatory text-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="h-[calc(50%-2rem)]" />
+
+            {(["AM", "PM"] as const).map((period) => (
+              <button
+                key={period}
+                type="button"
+                onClick={() => setSelectedPeriod(period)}
+                className={`flex h-16 w-full snap-center items-center justify-center text-3xl transition-colors ${
+                  selectedPeriod === period
+                    ? "font-medium text-white"
+                    : "text-white/35"
+                }`}
+              >
+                {period}
+              </button>
+            ))}
+
+
+
+            <div className="h-[calc(50%-2rem)]" />
+          </div>
+        </div>
+
+        {/* SELECTED TIME */}
+        {/* <p className="mt-3 text-center text-sm text-white/60">
+          Selected time
+        </p> */}
+
+        <p className="mt-1 text-center text-lg font-medium text-white">
+          {selectedHour}:{String(selectedMinute).padStart(2, "0")}{" "}
+          {selectedPeriod}
+        </p>
+      </div>
+    </div>
+  </div>
+)}
               {/* STEP 3 */}
               {step === 3 && (
                 <div>
